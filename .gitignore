@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+
+.DS_Store
+.idea
+code/venv
+
 # Distribution / packaging
 .Python
 build/
