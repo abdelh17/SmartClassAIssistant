@@ -1,15 +1,14 @@
 import os
-import math
-import matplotlib.pyplot as plt
-import numpy as np
-from PIL import Image
-import pandas as pd
-import seaborn as sns
 import random
 
-# Set the backend for matplotlib
 import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+from PIL import Image
+
 matplotlib.use('Agg')
+
 
 def create_dataset_dict(base_dir):
     """
@@ -26,7 +25,9 @@ def create_dataset_dict(base_dir):
                         "normalized_path": os.path.join(label_dir, filename),
                         "label": label
                     }
+
     return dataset_dict
+
 
 def plot_class_distribution(dataset_dict):
     """
@@ -37,6 +38,7 @@ def plot_class_distribution(dataset_dict):
     plt.title('Class Distribution')
     plt.savefig('data/class_distribution.png')  # Save the plot as a PNG file
     plt.close()
+
 
 def plot_pixel_intensity_distribution(dataset_dict, sample_size=100):
     """
@@ -96,6 +98,7 @@ def plot_sample_images(dataset_dict, samples_per_class=5):
     plt.savefig('data/sample_images.png')  # Save the plot as a PNG file
     plt.close()
 
+
 # Main code for visualization
 base_dir = 'data/normalized_data'
 
@@ -103,6 +106,6 @@ base_dir = 'data/normalized_data'
 dataset_dict = create_dataset_dict(base_dir)
 
 # Dataset visualization
-# plot_class_distribution(dataset_dict)
-# plot_pixel_intensity_distribution(dataset_dict)
+plot_class_distribution(dataset_dict)
+plot_pixel_intensity_distribution(dataset_dict)
 plot_sample_images(dataset_dict)
