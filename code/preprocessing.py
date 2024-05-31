@@ -1,3 +1,4 @@
+import json
 import os
 import zipfile
 
@@ -79,6 +80,7 @@ def generate_transformed_images(path_dictionary, transform):
         image_to_save.save(normalized_path)
 
 
+# path to the zip file
 zip_file_path = 'data/dataset.zip'
 
 extract_zip(zip_file_path)
@@ -87,17 +89,20 @@ extract_zip(zip_file_path)
 dataset_dict = {}
 
 # rename files, this will also update the dictionary
-rename_files('data/angry', 'angry')
-rename_files('data/happy', 'happy')
-rename_files('data/neutral', 'neutral')
+labels = ['angry', 'happy', 'neutral']
+
+for label in labels:
+    rename_files(f'data/{label}', f'{label}')
+# save the dictionary to a json file to be used later by other modules
+with open('dataset.json', 'w') as json_file:
+    json.dump(dataset_dict, json_file, indent=4)
+
 # resize, make tensor, normalize
 transformation = transforms.Compose([
     transforms.Resize((224, 224)),  # for resnet18 for example
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])  # standard normalization values
 ])
-
-labels = ['angry', 'happy', 'neutral']
 
 make_normalized_directories(labels)
 
