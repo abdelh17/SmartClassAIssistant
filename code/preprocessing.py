@@ -32,6 +32,9 @@ def rename_files(folder_path, label):
     # images 1,2,3 are those of the team members
     start_number = 4
     for i, filename in enumerate(files):
+        # skip the images of the team members that already the correct naming pattern
+        if filename.__contains__(label):
+            continue
         if filename.endswith('.jpg'):
             identifier = f"{label}{start_number + i}"
             new_file_name = f"{identifier}.jpg"
@@ -89,7 +92,7 @@ extract_zip(zip_file_path)
 dataset_dict = {}
 
 # rename files, this will also update the dictionary
-labels = ['angry', 'happy', 'neutral']
+labels = ['angry', 'happy', 'neutral', "focused"]
 
 for label in labels:
     rename_files(f'data/{label}', f'{label}')

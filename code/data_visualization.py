@@ -27,17 +27,20 @@ def plot_class_distribution(dataset_dict):
     plt.close()
 
 
-def plot_pixel_intensity_distribution(dataset_dict, sample_size=100):
+def plot_pixel_intensity_distribution(dataset_dict, labels, sample_size=100):
     """
     Plots the pixel intensity distribution for each class.
     Only a subset of images is processed for efficiency.
+    :param sample_size: size o the sample to be used for the visualization
+    :param labels: classes to visualize
     :param dataset_dict: the dictionary that contains the file paths and labels
     """
-    for label in set([value['label'] for value in dataset_dict.values()]):
+
+    for label in labels:
         all_pixels = []
         class_images = [key for key, value in dataset_dict.items() if value['label'] == label]
 
-        # If there are more images than sample_size, randomly sample them
+        # only applies the visualization to a subset of the images to save considerable time
         if len(class_images) > sample_size:
             class_images = random.sample(class_images, sample_size)
 
@@ -123,7 +126,7 @@ os.makedirs(generated_plots_dir, exist_ok=True)
 dataset_dict = get_dataset_dictionary()
 
 # Class names
-classes = ['angry', 'happy', 'neutral']
+classes = ['angry', 'happy', 'neutral', "focused"]
 
 # visualization
 for class_name in classes:
@@ -132,4 +135,4 @@ for class_name in classes:
     plot_images_with_histograms(paths, class_name)
 
 plot_class_distribution(dataset_dict)
-plot_pixel_intensity_distribution(dataset_dict)
+plot_pixel_intensity_distribution(dataset_dict, classes)
