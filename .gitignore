@@ -10,7 +10,10 @@ __pycache__/
 .DS_Store
 .idea
 code/venv
-code/data
+code/dataset.json
+code/data/*
+plots/
+!code/data/dataset.zip
 
 # Distribution / packaging
 .Python
