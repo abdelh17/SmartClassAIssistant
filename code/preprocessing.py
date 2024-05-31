@@ -20,6 +20,19 @@ def extract_zip(zip_path):
             shutil.rmtree("data/__MACOSX")
 
 
+def cleanup_root():
+    """
+    This function removes the folders and files that were created during previous runs
+    """
+    folders_to_remove = ['data/angry', 'data/happy', 'data/neutral', 'data/focused', 'data/normalized_data']
+    for folder in folders_to_remove:
+        if os.path.exists(folder):
+            import shutil
+            shutil.rmtree(folder)
+    if os.path.exists('dataset.json'):
+        os.remove('dataset.json')
+
+
 def rename_files(folder_path, label):
     """
     This function renames the files in the folder to be in the format labelNUMBER.jpg.
@@ -32,9 +45,14 @@ def rename_files(folder_path, label):
     # images 1,2,3 are those of the team members
     start_number = 4
     for i, filename in enumerate(files):
-        # skip the images of the team members that already the correct naming pattern
-        if filename.__contains__(label):
+        # skip renaming the images of the team members that already the correct naming pattern
+        if label in filename:
+            identifier = filename.split(".")[0]
+            dataset_dict[identifier] = {"original_path": os.path.join(folder_path, filename),
+                                        "normalized_path": f"data/normalized_data/{label}/transformed_{identifier}.jpg",
+                                        "label": label}
             continue
+        # rename all other images
         if filename.endswith('.jpg'):
             identifier = f"{label}{start_number + i}"
             new_file_name = f"{identifier}.jpg"
@@ -82,6 +100,8 @@ def generate_transformed_images(path_dictionary, transform):
         # save image in the normalized directory
         image_to_save.save(normalized_path)
 
+
+cleanup_root()
 
 # path to the zip file
 zip_file_path = 'data/dataset.zip'
