@@ -34,6 +34,10 @@ def rename_files(folder_path, label):
     for i, filename in enumerate(files):
         # skip the images of the team members that already the correct naming pattern
         if filename.__contains__(label):
+            identifier = filename.split(".")[0]
+            dataset_dict[identifier] = {"original_path": os.path.join(folder_path, filename),
+                                        "normalized_path": f"data/normalized_data/{label}/transformed_{identifier}.jpg",
+                                        "label": label}
             continue
         if filename.endswith('.jpg'):
             identifier = f"{label}{start_number + i}"
