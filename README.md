@@ -82,7 +82,8 @@ When done, to exit the virtual environment execute:
 ```bash
 deactivate
 ```
-
+## Link to the full dataset
+https://www.kaggle.com/datasets/msambare/fer2013
 
 
 
