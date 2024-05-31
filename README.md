@@ -50,7 +50,7 @@ In a terminal:
 ```
 git clone https://github.com/abdelh17/SmartClassAIssistant.git
 ```
-2. In the root, execute the following commands in a terminal:
+2. In the root, execute the following commands in a terminal to create a virtual environment:
 ```bash
 cd code
 python -m venv venv
@@ -78,7 +78,10 @@ python preprocessing.py
 ```bash
 python data_visualization.py
 ```
-
+When done, to exit the virtual environment execute:
+```bash
+deactivate
+```
 
 
 
