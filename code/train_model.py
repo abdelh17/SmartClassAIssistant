@@ -1,21 +1,45 @@
 import os
 import torch
 import torch.optim as optim
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Dataset
 from cnn_model import SimpleCNN, Variant1CNN, Variant2CNN
-from facial_expression_dataset import FacialExpressionDataset
 import torchvision.transforms as transforms
 import torch.nn as nn
+from PIL import Image
 
+class PreprocessedDataset(Dataset):
+    def __init__(self, img_dir, transform=None):
+        self.img_dir = img_dir
+        self.transform = transform
+        self.img_labels = []
+        self.class_names = os.listdir(img_dir)
+        for label in self.class_names:
+            label_dir = os.path.join(img_dir, label)
+            for img_name in os.listdir(label_dir):
+                self.img_labels.append((os.path.join(label_dir, img_name), label))
+
+    def __len__(self):
+        return len(self.img_labels)
+
+    def __getitem__(self, idx):
+        img_path, label = self.img_labels[idx]
+        image = Image.open(img_path).convert('RGB')
+        if self.transform:
+            image = self.transform(image)
+        label_idx = self.class_names.index(label)
+        return image, label_idx
+
+# Path to the directory containing normalized data
 img_dir = os.path.join(os.getcwd(), 'data', 'normalized_data')
 
+# Load dataset
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
-dataset = FacialExpressionDataset(img_dir=img_dir, transform=transform)
+dataset = PreprocessedDataset(img_dir=img_dir, transform=transform)
 
 train_size = int(0.7 * len(dataset))
 val_size = int(0.15 * len(dataset))
@@ -34,7 +58,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 num_epochs = 10
-patience = 3
+patience = 5
 best_val_loss = float('inf')
 patience_counter = 0
 
