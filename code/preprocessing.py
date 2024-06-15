@@ -122,7 +122,7 @@ with open('dataset.json', 'w') as json_file:
 
 # resize, make tensor, normalize
 transformation = transforms.Compose([
-    transforms.Resize((224, 224)),  # for resnet18 for example
+    transforms.Resize((48, 48)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])  # standard normalization values
 ])
