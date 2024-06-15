@@ -24,9 +24,17 @@ def generate_confusion_matrix(cm, model_name):
 def evaluate_metrics(all_preds, all_labels, test_loss, model_name):
     accuracy = accuracy_score(all_labels, all_preds)
     print(f'Testing model: {model_name}, Test Loss: {test_loss:.4f}, Test Accuracy: {accuracy:.2f}%')
-    precision, recall, f1, _ = precision_recall_fscore_support(all_labels, all_preds, average='macro', zero_division=0)
+    macro_precision, macro_recall, macro_f1, _ = precision_recall_fscore_support(all_labels, all_preds, average='macro',
+                                                                                 zero_division=0)
+    micro_precision, micro_recall, micro_f1, _ = precision_recall_fscore_support(all_labels, all_preds, average='micro',
+                                                                                 zero_division=0)
+
     cm = confusion_matrix(all_labels, all_preds)
-    print(f'Accuracy: {accuracy:.2f}, Precision: {precision:.2f}, Recall: {recall:.2f}, F1-score: {f1:.2f}')
+    print(f"Accuracy: {accuracy:.2f}")
+    print(f'MACRO: Precision: {macro_precision:.2f}, Recall: {macro_recall:.2f}, F1-score: {macro_f1:.2f}')
+    print(f'MICRO: Precision: {micro_precision:.2f}, Recall: {micro_recall:.2f}, F1-score: {micro_f1:.2f}')
+    print()
+
     return cm
 
 
