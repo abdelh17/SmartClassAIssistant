@@ -2,13 +2,19 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class SimpleCNN(nn.Module):
+    """
+    Simple CNN model with 3 convolutional layers and 3 fully connected layers
+    """
+
     def __init__(self):
         super(SimpleCNN, self).__init__()
         self.conv1 = nn.Conv2d(3, 16, 3, 1)
         self.conv2 = nn.Conv2d(16, 32, 3, 1)
         self.conv3 = nn.Conv2d(32, 64, 3, 1)
-        self.fc1 = nn.Linear(64*26*26, 128)
-        self.fc2 = nn.Linear(128, 4)
+
+        self.fc1 = nn.Linear(64 * 4 * 4, 128)
+        self.fc2 = nn.Linear(128, 16)
+        self.fc3 = nn.Linear(16, 4)
 
     def forward(self, x):
         x = F.relu(self.conv1(x))
@@ -17,54 +23,75 @@ class SimpleCNN(nn.Module):
         x = F.max_pool2d(x, 2)
         x = F.relu(self.conv3(x))
         x = F.max_pool2d(x, 2)
-        x = x.view(-1, 64*26*26)
+
+        # print(x.shape)
+
+        x = x.view(-1, 64 * 4 * 4)
         x = F.relu(self.fc1(x))
-        x = self.fc2(x)
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
         return x
 
-# Variant 1: More convolutional layers
-class Variant1CNN(nn.Module):
+
+class Model2(nn.Module):
+    """
+    First variant of the model, with one less layer
+    """
+
     def __init__(self):
-        super(Variant1CNN, self).__init__()
+        super(Model2, self).__init__()
         self.conv1 = nn.Conv2d(3, 16, 3, 1)
         self.conv2 = nn.Conv2d(16, 32, 3, 1)
-        self.conv3 = nn.Conv2d(32, 64, 3, 1)
-        self.conv4 = nn.Conv2d(64, 128, 3, 1)
-        self.fc1 = nn.Linear(128*12*12, 128)
-        self.fc2 = nn.Linear(128, 4)
+
+        self.fc1 = nn.Linear(32 * 10 * 10, 128)
+        self.fc2 = nn.Linear(128, 16)
+        self.fc3 = nn.Linear(16, 4)
 
     def forward(self, x):
         x = F.relu(self.conv1(x))
         x = F.max_pool2d(x, 2)
         x = F.relu(self.conv2(x))
         x = F.max_pool2d(x, 2)
-        x = F.relu(self.conv3(x))
-        x = F.max_pool2d(x, 2)
-        x = F.relu(self.conv4(x))
-        x = F.max_pool2d(x, 2)
-        x = x.view(-1, 128*12*12)
+
+        # print(x.shape)
+        x = x.view(-1, 32 * 10 * 10)
         x = F.relu(self.fc1(x))
-        x = self.fc2(x)
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
         return x
 
-# Variant 2: Different kernel sizes
-class Variant2CNN(nn.Module):
+
+class Model3(nn.Module):
+    """
+    Second variant of the model, with different kernel sizes and number of filters
+    """
+
     def __init__(self):
-        super(Variant2CNN, self).__init__()
-        self.conv1 = nn.Conv2d(3, 16, 5, 1)
-        self.conv2 = nn.Conv2d(16, 32, 5, 1)
-        self.conv3 = nn.Conv2d(32, 64, 5, 1)
-        self.fc1 = nn.Linear(64*24*24, 128)
-        self.fc2 = nn.Linear(128, 4)
+        super(Model3, self).__init__()
+        self.conv1 = nn.Conv2d(3, 16, 3, 1)
+        self.conv2 = nn.Conv2d(16, 32, 12, 1)
+        self.conv3 = nn.Conv2d(32, 64, 4, 1)
+
+        self.fc1 = nn.Linear(64 * 1 * 1, 128)
+        self.fc2 = nn.Linear(128, 16)
+        self.fc3 = nn.Linear(16, 4)
 
     def forward(self, x):
+        """
+        Forward pass
+        :param x:
+        :return:
+        """
         x = F.relu(self.conv1(x))
         x = F.max_pool2d(x, 2)
         x = F.relu(self.conv2(x))
         x = F.max_pool2d(x, 2)
         x = F.relu(self.conv3(x))
         x = F.max_pool2d(x, 2)
-        x = x.view(-1, 64*24*24)
+
+        # print(x.shape)
+        x = x.view(-1, 64 * 1 * 1)
         x = F.relu(self.fc1(x))
-        x = self.fc2(x)
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
         return x
