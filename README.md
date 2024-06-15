@@ -49,6 +49,7 @@ In a terminal:
 1. Clone the repository.
 ```
 git clone https://github.com/abdelh17/SmartClassAIssistant.git
+cd SmartClassAIssistant/
 ```
 2. In the root, execute the following commands in a terminal to create a virtual environment:
 ```bash
