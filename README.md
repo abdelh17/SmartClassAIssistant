@@ -78,10 +78,40 @@ python preprocessing.py
 ```bash
 python data_visualization.py
 ```
-When done, to exit the virtual environment execute:
+
+### Run the training code
+**Note: you must have ran the preprocessing command at least once before.**
+1. In the code directory, execute:
+```bash
+python train_model.py
+```
+
+### Run the evaluation code
+**Note: you must have ran the train_model command at least once before. Your folder structure should have a ```saved_models``` folder.**
+1. In the code directory, execute:
+```bash
+python evaluation.py
+```
+This will generate 3 confusion matrices in ```confusion_matrix/```
+
+### Run the inference code
+**Note: you must have ran the train_model command at least once before. Your folder structure should have a ```saved_models``` folder.**
+1. In the code directory, execute:
+```bash
+python inference.py path_to_your_image_1 path_to_your_image_2 path_to_your_image_3
+```
+**Replace the above paths by the images you want to make an inference on. At least one path is needed, and there is no limit to the number of images passed.**  
+Example:
+```bash
+python inference.py data/angry/angry234.jpg data/happy/happy45.jpg data/neutral/neutral34.jpg
+```
+
+## When done
+To exit the virtual environment execute:
 ```bash
 deactivate
 ```
+
 ## Link to the full dataset
 https://www.kaggle.com/datasets/msambare/fer2013
 
