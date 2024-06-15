@@ -14,6 +14,11 @@ code/
 ├── data/
 │   └── dataset.zip
 ├── preprocessing.py
+├── cnn_model.py
+├── Dataset.py
+├── evaluation.py
+├── inference.py
+├── train_model.py
 ├── data_visualization.py
 └── requirements.txt
 
@@ -32,6 +37,11 @@ code/
 │   ├── focused/
 │   └── normalized_data/
 ├── preprocessing.py
+├── cnn_model.py
+├── Dataset.py
+├── evaluation.py
+├── inference.py
+├── train_model.py
 ├── datavisualization.py
 ├── dataset.json
 └── requirements.txt
@@ -85,6 +95,7 @@ python data_visualization.py
 ```bash
 python train_model.py
 ```
+After the training code is run, a new folder is created at the root: ```saved_models```. It contains the three models and their weights.
 
 ### Run the evaluation code
 **Note: you must have ran the train_model command at least once before. Your folder structure should have a ```saved_models``` folder.**
@@ -92,7 +103,8 @@ python train_model.py
 ```bash
 python evaluation.py
 ```
-This will generate 3 confusion matrices in ```confusion_matrix/```
+This will generate 3 confusion matrices in ```confusion_matrix/```, one for each model.
+
 
 ### Run the inference code
 **Note: you must have ran the train_model command at least once before. Your folder structure should have a ```saved_models``` folder.**
