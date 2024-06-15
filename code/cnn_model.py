@@ -9,8 +9,11 @@ class SimpleCNN(nn.Module):
     def __init__(self):
         super(SimpleCNN, self).__init__()
         self.conv1 = nn.Conv2d(3, 16, 3, 1)
+        self.pool1 = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(16, 32, 3, 1)
+        self.pool2 = nn.MaxPool2d(2, 2)
         self.conv3 = nn.Conv2d(32, 64, 3, 1)
+        self.pool3 = nn.MaxPool2d(2, 2)
 
         self.fc1 = nn.Linear(64 * 4 * 4, 128)
         self.fc2 = nn.Linear(128, 16)
@@ -18,13 +21,11 @@ class SimpleCNN(nn.Module):
 
     def forward(self, x):
         x = F.relu(self.conv1(x))
-        x = F.max_pool2d(x, 2)
+        x = self.pool1(x)
         x = F.relu(self.conv2(x))
-        x = F.max_pool2d(x, 2)
+        x = self.pool2(x)
         x = F.relu(self.conv3(x))
-        x = F.max_pool2d(x, 2)
-
-        # print(x.shape)
+        x = self.pool3(x)
 
         x = x.view(-1, 64 * 4 * 4)
         x = F.relu(self.fc1(x))
@@ -37,11 +38,12 @@ class Model2(nn.Module):
     """
     First variant of the model, with one less layer
     """
-
     def __init__(self):
         super(Model2, self).__init__()
         self.conv1 = nn.Conv2d(3, 16, 3, 1)
+        self.pool1 = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(16, 32, 3, 1)
+        self.pool2 = nn.MaxPool2d(2, 2)
 
         self.fc1 = nn.Linear(32 * 10 * 10, 128)
         self.fc2 = nn.Linear(128, 16)
@@ -49,11 +51,10 @@ class Model2(nn.Module):
 
     def forward(self, x):
         x = F.relu(self.conv1(x))
-        x = F.max_pool2d(x, 2)
+        x = self.pool1(x)
         x = F.relu(self.conv2(x))
-        x = F.max_pool2d(x, 2)
+        x = self.pool2(x)
 
-        # print(x.shape)
         x = x.view(-1, 32 * 10 * 10)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
@@ -69,8 +70,11 @@ class Model3(nn.Module):
     def __init__(self):
         super(Model3, self).__init__()
         self.conv1 = nn.Conv2d(3, 16, 3, 1)
+        self.pool1 = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(16, 32, 12, 1)
+        self.pool2 = nn.MaxPool2d(2, 2)
         self.conv3 = nn.Conv2d(32, 64, 4, 1)
+        self.pool3 = nn.MaxPool2d(2, 2)
 
         self.fc1 = nn.Linear(64 * 1 * 1, 128)
         self.fc2 = nn.Linear(128, 16)
@@ -83,13 +87,12 @@ class Model3(nn.Module):
         :return:
         """
         x = F.relu(self.conv1(x))
-        x = F.max_pool2d(x, 2)
+        x = self.pool1(x)
         x = F.relu(self.conv2(x))
-        x = F.max_pool2d(x, 2)
+        x = self.pool2(x)
         x = F.relu(self.conv3(x))
-        x = F.max_pool2d(x, 2)
+        x = self.pool3(x)
 
-        # print(x.shape)
         x = x.view(-1, 64 * 1 * 1)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
