@@ -20,6 +20,7 @@ code/
 ├── inference.py
 ├── train_model.py
 ├── data_visualization.py
+├── k_fold_cross_validation.py
 └── requirements.txt
 
 ```
