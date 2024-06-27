@@ -20,6 +20,7 @@ code/
 ├── inference.py
 ├── train_model.py
 ├── data_visualization.py
+├── k_fold_cross_validation.py
 └── requirements.txt
 
 ```
@@ -117,6 +118,12 @@ python inference.py path_to_your_image_1 path_to_your_image_2 path_to_your_image
 Example:
 ```bash
 python inference.py data/angry/angry234.jpg data/happy/happy45.jpg data/neutral/neutral34.jpg
+```
+
+### Run the k-fold cross validation
+1. In the code directory, execute:
+```bash
+python k_fold_cross_validation.py
 ```
 
 ## When done
