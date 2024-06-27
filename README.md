@@ -119,6 +119,12 @@ Example:
 python inference.py data/angry/angry234.jpg data/happy/happy45.jpg data/neutral/neutral34.jpg
 ```
 
+### Run the k-fold cross validation
+1. In the code directory, execute:
+```bash
+python k_fold_cross_validation.py
+```
+
 ## When done
 To exit the virtual environment execute:
 ```bash
