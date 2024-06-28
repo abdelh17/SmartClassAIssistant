@@ -64,7 +64,7 @@ def augment_and_combine_datasets(normalized_data_dir):
 normalized_data_dir = 'data/normalized_data'
 
 # Load model
-device = get_device()
+device = "cuda"
 model = SimpleCNN()
 model_name = 'SimpleCNN'
 model.to(device)
@@ -118,7 +118,7 @@ for epoch in range(num_epochs):
     if val_loss < best_val_loss:
         best_val_loss = val_loss
         patience_counter = 0
-        torch.save(model.state_dict(), f'saved_models/best_model_{model_name}.pth')
+        torch.save(model.state_dict(), f'saved_models/best_model_{model_name}_bias.pth')
     else:
         patience_counter += 1
 
