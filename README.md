@@ -117,7 +117,7 @@ python inference.py path_to_your_image_1 path_to_your_image_2 path_to_your_image
 **Replace the above paths by the images you want to make an inference on. At least one path is needed, and there is no limit to the number of images passed.**  
 Example:
 ```bash
-python inference.py data/angry/angry234.jpg data/happy/happy45.jpg data/neutral/neutral34.jpg
+python inference.py data/angry/angry185_fy.jpg data/happy/happy225_fa.jpg data/neutral/neutral139_ms.jpg
 ```
 
 ### Run the k-fold cross validation
